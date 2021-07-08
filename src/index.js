@@ -1,2 +1,7 @@
-let sum = (x, y) => x + y
-console.log(sum(4, 5))
+import './array';
+import './json';
+import './object';
+import './string';
+import './regular_expression';
+import './number';
+
