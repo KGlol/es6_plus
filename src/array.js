@@ -27,6 +27,10 @@ console.log(arr);
 arr.push(...[9, 9, 9])
 console.log(arr);
 
+// 4, includes
+// 第二个参数指定开始查找的位置
+// 不能直接查找引用数据类型
+
 
 /*
 Set
