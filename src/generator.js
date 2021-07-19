@@ -9,6 +9,10 @@
   - 与普通函数的区别：
   * 由于直接执行返回的生成器对象，不能做为构造函数使用
   * generator需要next()执行，可以暂停
+  - 方法
+  * Generator.prototype.next() 返回一个由 yield表达式生成的值。
+  * Generator.prototype.return(x) 返回给定的值并结束生成器 {value: x, done: true}。
+  * Generator.prototype.throw() 向生成器抛出一个错误。
 */
 
 function* foo() {
@@ -82,3 +86,34 @@ function* genForRequest() {
 // 获得迭代器
 const getData = genForRequest()
 getData.next()
+
+
+function* gen2() {
+  while (true) {
+    var value = yield null;
+    console.log(value);
+  }
+}
+
+var g2 = gen2();
+console.log(g2.next(1))
+// "{ value: null, done: false }"
+console.log(g2.next(2))
+// 2
+// "{ value: null, done: false }"
+
+
+function* fibonacci() {
+  var a = yield 1;
+  console.log(a);
+  yield a * 2;
+  yield a * 3;
+}
+
+var it = fibonacci();
+console.log(it);          // "Generator {  }"
+console.log(it.next());   //  {value: 1, done: false}
+console.log(it.next(10));   //  {value: 20, done: false}
+console.log(it.return(10)); // {value: 10, done: true}
+console.log(it.next(10)); // {value: undefined, done: true}
+console.log(it.next()); // {value: undefined, done: true}

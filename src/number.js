@@ -24,6 +24,7 @@ console.log(Number.isInteger(12)) // true
 // js中最大的整数是Math.pow(2, 53)，即2的53次方，最小值一样，比最大安全数(Number.MAX_SAFE_INTEGER)大1，
 // Number.isSafeInteger用于判断是否是安全数字
 console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER)); // true
+console.log(2 ** 53 === 2 ** 53 + 1); // 9007199254740992 true
 
 
 /* Math的新方法 */
@@ -33,4 +34,17 @@ console.log(Math.trunc(true)); // 1
 console.log(Math.trunc(false)); // 0
 console.log(Math.trunc()); // NaN
 console.log(Math.trunc(undefined)); // NaN
-// Math.sign 判断当前数字正负或为0
+// Math.sign 判断当前数字正负或为0，返回1、-1、 0
+/*
+  ES11 中的原始数据类型 BigInt
+  - 是一种新的原始数据类型，typeof的结果是 bigint
+  - 写法(两种)：
+    * 数字结尾添加n，9007199254740993n
+    * BigInt(9007199254740993)
+  - 有toString方法，可直接转化成字符串
+*/
+// 值相同，但是类型不同
+console.log(typeof 1n); // bigint
+console.log(1n == 1); // true
+console.log(1n === 1); // false
+console.log(9007199254740993n.toString()); // '9007199254740993'

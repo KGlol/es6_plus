@@ -26,3 +26,28 @@ String.fromCodePoint(0x20BB7) // 返回'𠮷'，es6新添加由编码转换成�
 // repeat(重复拼接)
 console.log('12'.repeat(2)); // 1212
 
+// padStart(填充后的字符串长度，要填充的字符), padEnd() 填充
+// * 若指定长度小于或等于原字符长度，则返回原字符串
+// 应用：日期填充0
+const now = new Date(),
+  year = now.getFullYear(),
+  month = (now.getMonth() + 1).toString().padStart(2, 0),
+  day = (now.getDate()).toString().padStart(2, 0),
+  str = `${year}-${month}-${day}`
+
+console.log(str);
+
+// 应用：手机号/银行卡星号
+const tel = '17717421070'
+const formattedTel = tel.slice(-4).padStart(tel.length, '*')
+console.log(formattedTel);
+
+// trimStart()、 trimEnd()、trimRight()、trimLeft()
+const str_for_trim = ' kkk '
+console.log(str_for_trim.trimStart());
+console.log(str_for_trim.trimLeft());
+
+
+// ES11 引入的matchAll
+
+

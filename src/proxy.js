@@ -59,10 +59,11 @@ range = new Proxy(range, {
   }
 })
 
-console.log('范围拦截结果：', 1000000 in range);
+console.log('范围拦截结果in：', 1000000 in range);
+console.log('范围拦截结果Reflect.has：', Reflect.has(range, 7));
 
 // ownKeys(对于所有类型的key值，包括Symbol进行拦截)
-// 使_开头的属性为私有属性，无法被遍历到
+// 通过拦截使_开头的属性为私有属性，无法被遍历到
 let userInfo = {
   name: 'name',
   age: 'age',

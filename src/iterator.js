@@ -14,6 +14,10 @@
     * TypedArray
     * 函数的arguments对象
     * NodeList对象(dom)
+  - 异步迭代
+    ES9中加入异步迭代for await of
+    * 可迭代协议为含有Symbol.asyncIterator
+    * 可遍历协议的next返回Promise的值为{value, done}
   - 总结：使不支持遍历的数据结构"可遍历"
 */
 
@@ -91,7 +95,7 @@ for (const value of obj) {
 }
 
 
-// 上面的方法也可以使用迭代器实现，不必再手写迭代器协议
+// 上面的方法也可以使用生成器实现，不必再手写迭代器协议
 const objForGenerator = {
   generatorKey1: 'generatorKey1',
   generatorKey2: 'generatorKey2',
@@ -114,3 +118,27 @@ console.log(generatorOfIt.next());
 for (let value of objForGenerator) {
   console.log('使用生成器Generator实现的对象可遍历键值', value);
 }
+
+// 异步迭代
+const asyncBase = time => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({ value: time, done: false })
+  }, time);
+})
+const asyncArr = [asyncBase(1000), asyncBase(2000), asyncBase(3000)]
+// 添加可迭代协议
+asyncArr[Symbol.asyncIterator] = function () {
+  let nextIndex = 0
+  return {
+    next() {
+      return nextIndex < asyncArr.length
+        ? asyncArr[nextIndex++] : Promise.resolve({ value: undefined, done: true })
+    }
+  }
+}
+async function asyncFor() {
+  for await (const item of asyncArr) {
+    console.log(item);
+  }
+}
+asyncFor()
